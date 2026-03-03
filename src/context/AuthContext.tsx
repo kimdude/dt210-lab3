@@ -1,6 +1,5 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import type { ReactNode } from "react";
-import usePost from "../hooks/usePost";
 
 import type { UserInterface, LoginCredentialsInterface, AuthResponseInterface, AuthContextInterface } from "../intefaces/authInterfaces";
 
@@ -15,22 +14,53 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [user, setUser] = useState<UserInterface | null>(null);
 
-    //Login user
+    useEffect(() => {
+        checkUser();
+    }, []);
+
+    //Loggin user
     const login = async(credentials: LoginCredentialsInterface) => {
-        const { data, error, loading } = usePost<AuthResponseInterface>("https://dt210g-lab3-api.onrender.com/user/login", credentials);
+        try {
+            const response = await fetch("https://dt210g-lab3-api.onrender.com/user/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credentials)
+            });
 
-        console.log(data)
-        console.log(error)
-        console.log(loading)
+            if(!response.ok) {
+                throw new Error("Inloggning misslyckades.");
+            }
 
-        localStorage.setItem("token", data.token);
-        setUser(data.user);
+            const data = await response.json() as AuthResponseInterface;
+            const user = { _id: data.user_id, username: data.username }
+
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(user));
+            setUser(user);
+            
+        } catch(error) {
+            throw error;
+        }
     }
     
     //Logout user
     const logout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setUser(null);
+    }
+
+    const checkUser = () => {
+        const user = localStorage.getItem("user");
+
+        if(!user) {
+            return;
+        }
+
+        const parsedUser: UserInterface = JSON.parse(user)
+        setUser(parsedUser)
     }
 
     return (
@@ -49,29 +79,3 @@ export const useAuth = () : AuthContextInterface => {
 
     return context;
 }
-
-
-/*
-        try {
-            const response = await fetch("https://dt210g-lab3-api.onrender.com/user/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(credentials)
-            });
-
-            if(!response.ok) {
-                throw new Error("Inloggning misslyckades.");
-            }
-
-            const data = await response.json() as AuthResponseInterface;
-
-            
-            
-
-        } catch(error) {
-            throw error;
-        }
-*/
-

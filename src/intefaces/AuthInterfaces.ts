@@ -9,7 +9,8 @@ export interface LoginCredentialsInterface {
 }
 
 export interface AuthResponseInterface {
-    user: UserInterface,
+    user_id: string,
+    username: string
     token: string
 }
 
