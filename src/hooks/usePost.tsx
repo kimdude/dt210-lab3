@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
-export default function useGet<T> (url: string) : { data: T, error: string | null, loading: boolean, fetchData: () => void } {
+export default function usePost<T> (url: string, item: Object) : { data: T, error: string | null, loading: boolean } {
 
     const [data, setData] = useState<T>([] as T);
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
         fetchData();
@@ -15,7 +15,10 @@ export default function useGet<T> (url: string) : { data: T, error: string | nul
             setLoading(true);
             setError(null);
 
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify(item)
+            });
 
             if(response.ok) {
                 const result = await response.json();
@@ -29,7 +32,8 @@ export default function useGet<T> (url: string) : { data: T, error: string | nul
             setLoading(false);
 
         }
+        
     }
 
-    return { data, error, loading, fetchData }
+    return { data, error, loading }
 }

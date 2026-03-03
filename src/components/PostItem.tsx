@@ -1,11 +1,11 @@
-import React from 'react'
-import type Post from '../intefaces/PostInterface'
+
+import type { Post } from '../intefaces/PostInterfaces'
 
 export const PostItem = ({post}: {post: Post}) => {
   return (
     <div>
         <p>{ post.result.username }</p>
-        <h2>{ post.title }</h2>
+        <h3>{ post.title }</h3>
         <p>{ post.text }</p>
         <small>{ post.createdAt }</small>
     </div>
