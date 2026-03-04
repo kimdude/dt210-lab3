@@ -1,11 +1,14 @@
 import { useState } from "react"
+import usePost from "../hooks/usePost";
 import type { PostFormInterface, ErrorInterface } from "../intefaces/PostInterfaces"
 
 export const PostForm = () => {
-
+    
     const [errors, setErrors] = useState<ErrorInterface>({});
     const [formData, setFormData] = useState<PostFormInterface>({ title: "", text: "" });
     const [displayTextInp, setDisplayTextInp] = useState<boolean>(false);
+
+    const { postData, loading, error, data } = usePost<PostFormInterface>("https://dt210g-lab3-api.onrender.com/blog");
 
     const validateTitle = (event: any) => {
         event.preventDefault();
@@ -45,7 +48,7 @@ export const PostForm = () => {
         return validationErrors;
     }
 
-    const submitForm = ((event: any) => {
+    const submitForm = async (event: any) => {
         event.preventDefault();
 
         const validationErrors = validateText();
@@ -55,7 +58,10 @@ export const PostForm = () => {
         }
 
         setErrors({});
-    });
+        await postData(formData);
+        
+        setFormData({ title: "", text: "" });
+    };
 
     return (
         <div>

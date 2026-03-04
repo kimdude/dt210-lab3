@@ -4,7 +4,7 @@ import { PostItem } from "../components/PostItem";
 
 export const HomePage = () => {
 
-  const { data, error, loading, fetchData } = useGet<Post[]>("https://dt210g-lab3-api.onrender.com/blog");
+  const { data, error, loading, fetchData } = useGet<Post[]>("https://dt210g-lab3-api.onrender.com/blog?limit=5");
 
   return (
     <>
