@@ -1,26 +1,23 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import type { PostFormInterface } from '../intefaces/PostInterfaces'
 
 
 export default function usePost<T> (url: string) : { data: T, error: string | null, loading: boolean, postData: (item: PostFormInterface) => Promise<void> } {
 
+    //States
     const [data, setData] = useState<T>([] as T);
     const [loading, setLoading] = useState(false); 
     const [error, setError] = useState<string | null>(null);
 
-    const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    const token: string | null = localStorage.getItem("token");
 
+    //Posting item
     const postData = async(item: PostFormInterface) => {
         try {
             setLoading(true);
             setError(null);
 
-            if(!token) {
-                return navigate("/login");
-            }
-
+            //Fetch API
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -31,11 +28,17 @@ export default function usePost<T> (url: string) : { data: T, error: string | nu
             });
 
             if(response.ok) {
-                const result = await response.json();
+                const result = await response.json() as T;
                 setData(result);
             }
             
-        } catch(error) {
+        } catch(err) {
+
+            //Checking if error message exists
+            if(err instanceof Error) {
+                return setError(err.message);
+            }
+
             setError("Ett fel uppstod. Prova igen senare.");
 
         } finally {

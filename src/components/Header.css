@@ -1,0 +1,36 @@
+/* Main nav*/
+header {
+    display: flex;
+    align-items: center;
+    padding: 0px 4vw;
+    margin-bottom: 40px;
+    background-color: rgb(186, 24, 201);
+    box-shadow: 2px 5px 5px rgba(117, 117, 117, 0.4);
+    color: white;
+}
+
+nav {
+    display: block;
+    margin-left: auto;
+}
+
+nav > ul {
+    list-style-type: none;
+    display: flex;
+}
+
+nav > ul > li > a {
+    padding: 34px 20px;
+    margin: 0px 10px;
+    text-decoration: none;
+    color: white;
+}
+
+nav > ul > li > a:hover {
+    text-decoration: underline;
+}
+
+.active {
+    background-color: rgb(255, 234, 117);
+    color: black;
+}

@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react'
 
 export default function useGet<T> (url: string) : { data: T, error: string | null, loading: boolean, fetchData: () => void } {
 
+    //States
     const [data, setData] = useState<T>([] as T);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
+    //Getting data upon mounted
     useEffect(() => {
         fetchData();
     }, [url]);
 
+    //Getting data
     const fetchData = async () => {
         try {
             setLoading(true);
@@ -22,8 +25,14 @@ export default function useGet<T> (url: string) : { data: T, error: string | nul
                 setData(result);
             }
             
-        } catch(error) {
-            setError("Ett fel uppstod. Prova igen senare.");
+        } catch(err) {
+
+            //Checking if error message exists
+            if(err instanceof Error) {
+                return setError(err.message);
+            }
+
+            setError("Ett fel har uppstått. Prova igen senare.");
 
         } finally {
             setLoading(false);

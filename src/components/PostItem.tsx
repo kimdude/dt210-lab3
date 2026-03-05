@@ -17,6 +17,7 @@ export const PostItem = ({post, displayOptions, updateList}: {post: Post, displa
   const [formData, setFormData] = useState<PostFormInterface>({title: post.title, text: post.text});
   const [errors, setErrors] = useState<ErrorInterface>({});
 
+  //Api hooks
   const { putData, error, loading } = usePut<PostFormInterface>("https://dt210g-lab3-api.onrender.com/blog/" + post._id);
   const { deleteData } = useDelete("https://dt210g-lab3-api.onrender.com/blog/" + post._id);
 
@@ -88,14 +89,18 @@ export const PostItem = ({post, displayOptions, updateList}: {post: Post, displa
             //Form to update
             displayForm &&
             <form>
+
+              {/* Title input */}
               <label htmlFor="title"></label>
               <input type="text" name="title" id="title" placeholder="Titel" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} />
               {errors.title && <span className="error">{errors.title}</span>}
 
+              {/* Text input */}
               <label htmlFor="text"></label>
               <textarea name="text" id="text" placeholder="Innehåll" value={formData.text} onChange={(e) => setFormData({...formData, text: e.target.value})}/>
               {errors.text && <span className="error">{errors.text}</span>}
 
+              {/* Submit btn */}
               <input type="submit" onClick={updatePost} className="btn" />
               {errors.serverErr && <span className="error">{errors.serverErr}</span>}
               {loading && <p className="loading">Lägger till...</p>}

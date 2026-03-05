@@ -12,8 +12,12 @@
     padding: 2vw
 }
 
-.PostItemArticleContent{ 
+.PostItemArticleContent { 
     width: 100%;
+}
+
+.PostItemArticleContent:hover { 
+    cursor: pointer;
 }
 
 .PostItemEditBtn {

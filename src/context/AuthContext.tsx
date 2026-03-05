@@ -14,6 +14,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [user, setUser] = useState<UserInterface | null>(null);
 
+    //Validating token upon mounted
     useEffect(() => {
        validateToken();
     }, []);
@@ -36,6 +37,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             const data = await response.json() as AuthResponseInterface;
             const user = { _id: data.user_id, username: data.username }
 
+            //Storing token & user
             localStorage.setItem("token", data.token);
             setUser(user);
             
@@ -80,6 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         }
     }
 
+    //Wrapping routes to provide auth-functions
     return (
         <AuthContext.Provider value={{user, login, logout }}>
             {children}

@@ -1,0 +1,11 @@
+form {
+    width: 80%;
+    max-width: 1200px; 
+    display: block;
+    margin: 20px auto;
+}
+
+form > div {
+    display: flex;
+    align-items: center;
+}
