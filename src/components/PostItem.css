@@ -1,0 +1,26 @@
+.PostItemArticleContainer {
+    box-shadow: 0px 2px 10px rgba(150, 150, 150, 0.4);
+    background-color: rgb(230, 209, 233);
+}
+
+.PostItemArticleContainer > article {
+    width: 80%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: flex-end; 
+    margin: 20px auto;
+    padding: 2vw
+}
+
+.PostItemArticleContent{ 
+    width: 100%;
+}
+
+.PostItemEditBtn {
+    text-decoration: underline;
+    color: rgb(255, 0, 0);
+}
+
+.PostItemEditBtn:hover {
+    cursor: pointer;
+}

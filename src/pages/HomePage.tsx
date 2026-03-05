@@ -17,7 +17,7 @@ export const HomePage = () => {
           {error && <p>{ error }</p>}
           
           {data.map((post) => (
-            <PostItem post={ post } key={ post._id } />
+            <PostItem post={ post } key={ post._id } displayOptions={false} />
           ))}
         </div>
       </section>

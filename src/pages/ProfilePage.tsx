@@ -26,7 +26,7 @@ export const ProfilePage = () => {
           {error && <p>{ error }</p>}
           
           {data.map((post) => (
-            <PostItem post={ post } key={ post._id } />
+            <PostItem post={ post } key={ post._id } displayOptions={true} />
           ))}
 
           <button className="btn" onClick={loadMore} style={{ display: "block", margin: "20px auto"}}>Ladda fler</button>
