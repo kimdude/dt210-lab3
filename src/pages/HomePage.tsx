@@ -26,7 +26,7 @@ export const HomePage = () => {
 
         <div>
           {loading && <p className="loading">Laddar...</p>}
-          {error && <p>{ error }</p>}
+          {error && <p className="loading">{ error }</p>}
           
           {/* Post articles */}
           {data.map((post) => (

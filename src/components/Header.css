@@ -17,6 +17,7 @@ nav {
 nav > ul {
     list-style-type: none;
     display: flex;
+    padding: 0px;
 }
 
 nav > ul > li > a {
@@ -33,4 +34,10 @@ nav > ul > li > a:hover {
 .active {
     background-color: rgb(255, 234, 117);
     color: black;
+}
+
+@media screen and (max-width: 550px) {
+    header { flex-direction: column; }
+    nav { margin: auto; margin-top: 20px; }
+    nav > ul > li > a { padding: 22px;}
 }

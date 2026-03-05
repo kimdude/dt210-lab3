@@ -78,7 +78,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
         } catch(error) {
             logout();
-            console.log(error)
         }
     }
 

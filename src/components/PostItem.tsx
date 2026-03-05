@@ -102,7 +102,7 @@ export const PostItem = ({post, displayOptions, updateList}: {post: Post, displa
 
               {/* Submit btn */}
               <input type="submit" onClick={updatePost} className="btn" />
-              {errors.serverErr && <span className="error">{errors.serverErr}</span>}
+              {error && <span className="error">{error}</span>}
               {loading && <p className="loading">Lägger till...</p>}
             </form>
           }

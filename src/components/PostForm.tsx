@@ -11,7 +11,7 @@ export const PostForm = ({ updateList }: { updateList: () => void }) => {
     const [formData, setFormData] = useState<PostFormInterface>({ title: "", text: "" });
     const [displayTextInp, setDisplayTextInp] = useState<boolean>(false);
 
-    const { postData, loading, error, data } = usePost<PostFormInterface>("https://dt210g-lab3-api.onrender.com/blog");
+    const { postData, error } = usePost<PostFormInterface>("https://dt210g-lab3-api.onrender.com/blog");
 
     //Validating title
     const validateTitle = (event: any) => {
@@ -96,7 +96,7 @@ export const PostForm = ({ updateList }: { updateList: () => void }) => {
                     <input type="submit" value="Dela" className="btn" />
                 </div>
                 {errors.text && <span className="error">{errors.text}</span>}
-                {errors.serverErr && <span className="error">{errors.serverErr}</span>}
+                {error && <span className="error">{error}</span>}
             </form>
         </div>
     );
