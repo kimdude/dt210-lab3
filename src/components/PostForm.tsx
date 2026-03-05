@@ -1,9 +1,8 @@
 import { useState } from "react"
 import usePost from "../hooks/usePost";
-import useGet from "../hooks/useGet";
 import type { PostFormInterface, ErrorInterface } from "../intefaces/PostInterfaces"
 
-export const PostForm = () => {
+export const PostForm = ({ updateList }: { updateList: () => void }) => {
     
     const [errors, setErrors] = useState<ErrorInterface>({});
     const [formData, setFormData] = useState<PostFormInterface>({ title: "", text: "" });
@@ -60,6 +59,7 @@ export const PostForm = () => {
 
         setErrors({});
         await postData(formData);
+        updateList();
         
         setFormData({ title: "", text: "" });
         setDisplayTextInp(false);

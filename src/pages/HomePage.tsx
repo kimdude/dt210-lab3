@@ -4,8 +4,7 @@ import { PostItem } from "../components/PostItem";
 
 export const HomePage = () => {
 
-  const { data, error, loading } = useGet<Post[]>("https://dt210g-lab3-api.onrender.com/blog?limit=3");
-  console.log(data)
+  const { data, error, loading, fetchData } = useGet<Post[]>("https://dt210g-lab3-api.onrender.com/blog?limit=3");
 
   return (
     <>
@@ -17,7 +16,7 @@ export const HomePage = () => {
           {error && <p>{ error }</p>}
           
           {data.map((post) => (
-            <PostItem post={ post } key={ post._id } displayOptions={false} />
+            <PostItem post={ post } key={ post._id } displayOptions={false} updateList={fetchData} />
           ))}
         </div>
       </section>

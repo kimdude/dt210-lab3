@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function useDelete(url: string) : { loading: boolean, error: string | null, deleteData: () => void } {
+export default function useDelete(url: string) : { loading: boolean, deleteError: string | null, deleteData: () => void } {
     
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [deleteError, setdeleteError] = useState<string | null>(null);
 
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
@@ -22,9 +22,8 @@ export default function useDelete(url: string) : { loading: boolean, error: stri
                 }
             });
 
-            if(result.ok) {
-                const data = await result.json();
-                console.log(data)
+            if(!result.ok) {
+                throw new Error("Ett fel uppstod. Prova igen senare.");
             }
 
             setLoading(false);
@@ -35,5 +34,5 @@ export default function useDelete(url: string) : { loading: boolean, error: stri
     }
 
 
-    return { loading, error, deleteData }
+    return { loading, deleteError, deleteData }
 }

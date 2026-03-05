@@ -9,7 +9,7 @@ import type { Post } from "../intefaces/PostInterfaces";
 import type { PostFormInterface } from "../intefaces/PostInterfaces";
 import type { ErrorInterface } from "../intefaces/PostInterfaces";
 
-export const PostItem = ({post, displayOptions}: {post: Post, displayOptions: boolean}) => {
+export const PostItem = ({post, displayOptions, updateList}: {post: Post, displayOptions: boolean, updateList: () => void}) => {
   const navigate = useNavigate();
 
   //States
@@ -57,14 +57,17 @@ export const PostItem = ({post, displayOptions}: {post: Post, displayOptions: bo
       return setErrors(validationErrors);
     }
     
-    putData(formData);
+    await putData(formData);
+    updateList();
+
     setErrors({});
     setDisplayForm(false)
   }
 
   //Deleting post
   const deletePost = async() => {
-    deleteData();
+    await deleteData();
+    updateList();
   }
 
   return (
