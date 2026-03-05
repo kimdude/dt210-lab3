@@ -6,6 +6,11 @@ body {
     background-repeat: no-repeat;
 }
 
+h1 > a {
+    text-decoration: none;
+    color: white;
+}
+
 h2 {
     display: block;
     margin: auto;

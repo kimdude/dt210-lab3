@@ -15,7 +15,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [user, setUser] = useState<UserInterface | null>(null);
 
     useEffect(() => {
-        checkUser();
+       validateToken();
     }, []);
 
     //Loggin user
@@ -37,7 +37,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             const user = { _id: data.user_id, username: data.username }
 
             localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(user));
             setUser(user);
             
         } catch(error) {
@@ -48,19 +47,37 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     //Logout user
     const logout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
         setUser(null);
     }
 
-    const checkUser = () => {
-        const user = localStorage.getItem("user");
+    //Validating token
+    const validateToken = async () => {
+        const token = localStorage.getItem("token");
 
-        if(!user) {
+        if(!token) {
             return;
         }
+        
+        try {   
+            const result = await fetch("https://dt210g-lab3-api.onrender.com/user/validate", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-type": "application/json"
+                }
+            });
 
-        const parsedUser: UserInterface = JSON.parse(user)
-        setUser(parsedUser)
+            if(!result.ok) {
+                return logout();
+            }
+
+            const data = await result.json();
+            setUser(data);
+
+        } catch(error) {
+            logout();
+            console.log(error)
+        }
     }
 
     return (
