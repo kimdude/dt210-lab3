@@ -8,7 +8,7 @@ export const PostPage = () => {
     //Hooks
     const { _id } = useParams<{_id: string}>();
     const { data, loading, error } = useGet<Post[]>("https://dt210g-lab3-api.onrender.com/blog/" + _id);
-
+    
     return (
         <div>
             {/* Section with post */}

@@ -9,7 +9,7 @@ import type { Post } from "../intefaces/PostInterfaces";
 import type { PostFormInterface } from "../intefaces/PostInterfaces";
 import type { ErrorInterface } from "../intefaces/PostInterfaces";
 
-export const PostItem = ({post, displayOptions, updateList}: {post: Post, displayOptions: boolean, updateList: () => void}) => {
+export const PostItem = ({post, displayOptions, updateList, showConfirmation}: {post: Post, displayOptions: boolean, updateList: () => void, showConfirmation: (message: string) => void}) => {
   const navigate = useNavigate();
 
   //States
@@ -59,7 +59,8 @@ export const PostItem = ({post, displayOptions, updateList}: {post: Post, displa
     }
     
     await putData(formData);
-    updateList();
+    await updateList();
+    showConfirmation("Inlägget har uppdaterats!");
 
     setErrors({});
     setDisplayForm(false)
@@ -69,6 +70,7 @@ export const PostItem = ({post, displayOptions, updateList}: {post: Post, displa
   const deletePost = async() => {
     await deleteData();
     updateList();
+    showConfirmation("Inlägget har tagits bort");
   }
 
   return (

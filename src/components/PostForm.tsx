@@ -4,7 +4,7 @@ import { useState } from "react"
 import usePost from "../hooks/usePost";
 import type { PostFormInterface, ErrorInterface } from "../intefaces/PostInterfaces"
 
-export const PostForm = ({ updateList }: { updateList: () => void }) => {
+export const PostForm = ({ updateList,  showConfirmation }: { updateList: () => void,  showConfirmation: (message: string) => void }) => {
     
     //States
     const [errors, setErrors] = useState<ErrorInterface>({});
@@ -70,7 +70,8 @@ export const PostForm = ({ updateList }: { updateList: () => void }) => {
 
         //Posting and updating list
         await postData(formData); 
-        updateList();
+        await updateList();
+        showConfirmation("Inlägget har delats!");
         
         //Resetting form
         setFormData({ title: "", text: "" });

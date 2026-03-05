@@ -8,6 +8,7 @@ export const ProfilePage = () => {
 
   //State
   const [pageLimit, setPageLimit] = useState<number>(5);
+  const [message, setMessage] = useState<string | null>(null);
 
   //Hook
   const { data, error, loading, fetchData } = useGet<Post[]>("https://dt210g-lab3-api.onrender.com/blog?limit=" + pageLimit);
@@ -18,11 +19,20 @@ export const ProfilePage = () => {
     setPageLimit(newLimit);
   }
 
+  const confirmMessage = (notification: string) => {
+      
+      setMessage(notification);
+      setTimeout(() => {
+          setMessage(null);
+      }, 10000);
+  }
+
   return (
     <div style={{ paddingBottom: "180px" }}>
 
       {/* Section for all posts */}
       <section>
+        {message && <p className="confirmationMessage">{ message }</p>}
         <h2>Alla dina inlägg</h2>
         <div>
           {loading && <p className="loading" >Laddar...</p>}
@@ -30,7 +40,7 @@ export const ProfilePage = () => {
           
           {/* Post articles*/}
           {data.map((post) => (
-            <PostItem post={ post } key={ post._id } displayOptions={true} updateList={fetchData} />
+            <PostItem post={ post } key={ post._id } displayOptions={true} updateList={fetchData} showConfirmation={confirmMessage} />
           ))}
 
           {/* Load more button */}
@@ -41,7 +51,7 @@ export const ProfilePage = () => {
       {/* Section for post-form */}
       <section style={{ position: "fixed", bottom: "0", right: "0", left: "0", backgroundColor: "rgb(255, 234, 117)", padding: "20px 0px", boxShadow: "4px 0px 10px rgba(19, 19, 19, 0.2)"}}>
         <h2>Skapa nytt inlägg</h2>
-        <PostForm updateList={fetchData} />
+        <PostForm updateList={fetchData} showConfirmation={confirmMessage} />
       </section>
     </div>
   )

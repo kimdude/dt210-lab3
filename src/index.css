@@ -57,6 +57,17 @@ input, textarea {
     margin: 10px auto;
 }
 
+.confirmationMessage {
+    position: fixed;
+    top: 45%;
+    left: 40%;
+    width: fit-content;
+    padding: 10px 20px;
+    border: solid 1px rgb(255, 0, 234);
+    border-radius: 5px;
+    background-color: rgba(255, 0, 234, 0.5);
+}
+
 /* Single page */
 .singlePage {
     background-color: rgb(230, 209, 233);
@@ -68,4 +79,12 @@ input, textarea {
     padding: 20px 0px;
     width: 80vw;
     max-width: 1200px;
+}
+
+@media screen and (max-width: 690px) {
+    .confirmationMessage { left: 30% }
+}
+
+@media screen and (max-width: 490px) {
+    .confirmationMessage { left: 25% }
 }
