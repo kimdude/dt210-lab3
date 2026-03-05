@@ -1,5 +1,6 @@
 import { useState } from "react"
 import usePost from "../hooks/usePost";
+import useGet from "../hooks/useGet";
 import type { PostFormInterface, ErrorInterface } from "../intefaces/PostInterfaces"
 
 export const PostForm = () => {
@@ -61,25 +62,25 @@ export const PostForm = () => {
         await postData(formData);
         
         setFormData({ title: "", text: "" });
+        setDisplayTextInp(false);
     };
 
     return (
-        <div>
-            <form onSubmit={submitForm}>
-                <h2>Skapa nytt inlägg</h2>
-                <div id="titleContainer">
+        <div >
+            <form onSubmit={submitForm} style={{ width: "80%", maxWidth: "1200px", display: "block", margin: "20px auto" }}>
+                <div id="titleContainer" style={{ display: "flex", alignItems: "center" }}>
                     <label htmlFor="title"></label>
                     <input type="text" name="title" id="title" value={formData.title} onChange={(event) => setFormData({...formData, title: event.target.value})} placeholder="Titel" />
-                    {errors.title && <span className="error">{errors.title}</span>}
-                    <button onClick={validateTitle} style={{display: !displayTextInp ? "block" : "none"}}>Nästa</button>
+                    <button onClick={validateTitle} style={{display: !displayTextInp ? "block" : "none"}} className="btn">Nästa</button>
                 </div>
+                {errors.title && <span className="error">{errors.title}</span>}
 
-                <div id="textContainer" style={{display: displayTextInp ? "block" : "none"}}>
+                <div id="textContainer" style={{display: displayTextInp ? "flex" : "none", alignItems: "center"}}>
                     <label htmlFor="text"></label>
                     <textarea name="text" id="text" value={formData.text} onChange={(event) => setFormData({...formData, text: event.target.value})} placeholder="Innehåll"></textarea>
-                    {errors.text && <span className="error">{errors.text}</span>}
-                    <input type="submit" value="Dela" />
+                    <input type="submit" value="Dela" className="btn" />
                 </div>
+                {errors.text && <span className="error">{errors.text}</span>}
                 {errors.serverErr && <span className="error">{errors.serverErr}</span>}
             </form>
         </div>

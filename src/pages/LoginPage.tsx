@@ -33,16 +33,16 @@ export const LoginPage = () => {
   }
 
   return (
-    <div>
+    <div style={{ display: "block", margin: "100px auto", width: "60%"}}>
       <section>
           <form onSubmit={submit}>
-            <label htmlFor="username">Användarnamn: </label>
-            <input type="text" name="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <label htmlFor="username"></label>
+            <input type="text" name="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Användarnamn" style={{ width: "100%"}} /><br />
 
-            <label htmlFor="password">Användarnamn: </label>
-            <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <label htmlFor="password"></label>
+            <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord" style={{ width: "100%"}} /><br />
 
-            <input type="submit" value="Logga in" />
+            <input type="submit" value="Logga in" className="btn" />
             {error && <span className="error">{error}</span>}
           </form>
       </section>

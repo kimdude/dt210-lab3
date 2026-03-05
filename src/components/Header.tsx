@@ -14,7 +14,7 @@ export const Header = () => {
                 <li><NavLink to="/profile">Din profil</NavLink></li>
                 <li>
                   {
-                    !user ? <NavLink to="/login">Logga in</NavLink> : <button onClick={logout}>Logga ut</button>
+                    !user ? <NavLink to="/login">Logga in</NavLink> : <button onClick={logout} className="btn">Logga ut</button>
                   }
                 </li>
             </ul>

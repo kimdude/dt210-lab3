@@ -8,7 +8,7 @@ export default function useGet<T> (url: string) : { data: T, error: string | nul
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [url]);
 
     const fetchData = async () => {
         try {
@@ -18,7 +18,7 @@ export default function useGet<T> (url: string) : { data: T, error: string | nul
             const response = await fetch(url);
 
             if(response.ok) {
-                const result = await response.json();
+                const result = await response.json() as T;
                 setData(result);
             }
             

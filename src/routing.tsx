@@ -4,6 +4,7 @@ import { LoginPage } from "./pages/LoginPage"
 import { Layout } from "./components/Layout";
 import { ProfilePage } from "./pages/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { PostPage } from "./pages/PostPage";
 
 const router = createBrowserRouter([
     {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <HomePage />
+            },
+            {
+                path: "/post/:_id",
+                element: <PostPage />
             },
             {
                 path: "login",

@@ -1,3 +1,4 @@
+
 export interface PostFormInterface {
     title: string,
     text: string
@@ -10,6 +11,7 @@ export interface Post {
     user_id: string,
     username: string,
     createdAt: string,
+    updatedAt: string,
     result: {
         _id: string,
         username: string
